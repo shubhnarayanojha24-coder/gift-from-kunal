@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surprise For Subhanarayan Uncle! 🎉</title>
+  
+  <!-- Google Fonts & Canvas Confetti -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Fredoka+One&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #0F172A;
+      --card-bg: #1E293B;
+      --accent-yellow: #FACC15;
+      --accent-pink: #EC4899;
+      --accent-cyan: #06B6D4;
+      --text: #F8FAFC;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Floating Background Particle Stars */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      animation: floatAround 6s infinite ease-in-out alternate;
+    }
+
+    @keyframes floatAround {
+      from { transform: translateY(0) scale(1); opacity: 0.3; }
+      to { transform: translateY(-50px) scale(1.5); opacity: 0.8; }
+    }
+
+    /* ==================== LOGIN / UNLOCK SCREEN ==================== */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: var(--bg);
+      z-index: 999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.6s ease, visibility 0.6s;
+    }
+
+    .login-box {
+      background: var(--card-bg);
+      padding: 40px;
+      border-radius: 24px;
+      text-align: center;
+      border: 2px solid var(--accent-cyan);
+      box-shadow: 0 0 30px rgba(6, 182, 212, 0.3);
+      max-width: 400px;
+      width: 90%;
+      animation: pulseBox 2s infinite alternate;
+    }
+
+    @keyframes pulseBox {
+      0% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.3); }
+      100% { box-shadow: 0 0 40px rgba(236, 72, 153, 0.5); }
+    }
+
+    .login-box h2 {
+      font-family: 'Fredoka One', cursive;
+      font-size: 2.2rem;
+      color: var(--accent-yellow);
+      margin-bottom: 10px;
+    }
+
+    .login-box p {
+      font-size: 0.95rem;
+      color: #94A3B8;
+      margin-bottom: 25px;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: 2px solid var(--accent-pink);
+      background: #0F172A;
+      color: #fff;
+      font-size: 1.1rem;
+      text-align: center;
+      outline: none;
+      margin-bottom: 15px;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(135deg, var(--accent-pink), var(--accent-yellow));
+      color: #000;
+      font-weight: 800;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .login-btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* ==================== MAIN CONTENT ==================== */
+    .main-container {
+      max-width: 1000px;
+      width: 100%;
+      padding: 40px 20px;
+      z-index: 1;
+      display: none;
+      animation: zoomIn 0.8s ease-out forwards;
+    }
+
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .header h1 {
+      font-family: 'Fredoka One', cursive;
+      font-size: 3.5rem;
+      background: linear-gradient(45deg, var(--accent-yellow), var(--accent-pink), var(--accent-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      color: #CBD5E1;
+    }
+
+    /* 3D PLAYFUL CARDS */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-bottom: 50px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-10px) rotate(1deg);
+      border-color: var(--accent-yellow);
+      box-shadow: 0 10px 25px rgba(250, 204, 21, 0.2);
+    }
+
+    .card-icon {
+      font-size: 3.5rem;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      font-family: 'Fredoka One', cursive;
+      color: var(--accent-cyan);
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: #94A3B8;
+      line-height: 1.6;
+    }
+
+    /* BIG ACTION BUTTON */
+    .action-zone {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .surprise-btn {
+      background: linear-gradient(45deg, var(--accent-cyan), var(--accent-pink));
+      color: white;
+      border: none;
+      padding: 18px 40px;
+      font-size: 1.3rem;
+      font-weight: 800;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .surprise-btn:hover {
+      transform: scale(1.1) rotate(-2deg);
+      box-shadow: 0 15px 40px rgba(6, 182, 212, 0.6);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Star Background -->
+  <div class="bg-animation" id="star-container"></div>
+
+  <!-- PASSWORD / UNLOCK OVERLAY -->
+  <div class="overlay" id="login-overlay">
+    <div class="login-box">
+      <h2>Welcome Uncle! 😎</h2>
+      <p>Enter the secret code to open your surprise:</p>
+      <input type="password" id="pass-input" placeholder="Hint: uncle" onkeydown="if(event.key === 'Enter') unlock()">
+      <button class="login-btn" onclick="unlock()">OPEN SURPRISE 🚀</button>
+    </div>
+  </div>
+
+  <!-- MAIN PLAYFUL WEBSITE -->
+  <div class="main-container" id="main-content">
+    
+    <div class="header">
+      <h1>Subhanarayan Ojha</h1>
+      <p>The Most Awesome & Coolest Uncle on Planet Earth! 🌟</p>
+    </div>
+
+    <!-- PLAYFUL CARDS -->
+    <div class="cards-grid">
+      <div class="card" onclick="fireConfetti()">
+        <div class="card-icon">👑</div>
+        <h3>The Boss Man</h3>
+        <p>Always stylish, always full of energy, and absolute ruler of good vibes!</p>
+      </div>
+
+      <div class="card" onclick="fireConfetti()">
+        <div class="card-icon">⚡</div>
+        <h3>100% High Energy</h3>
+        <p>No dull moments when Subhanarayan Uncle is around. Full power dynamic personality!</p>
+      </div>
+
+      <div class="card" onclick="fireConfetti()">
+        <div class="card-icon">🔥</div>
+        <h3>Absolute Legend</h3>
+        <p>The coolest mind, best advice, and someone who knows how to keep things awesome!</p>
+      </div>
+    </div>
+
+    <!-- ACTION BUTTON -->
+    <div class="action-zone">
+      <button class="surprise-btn" onclick="megaCelebration()">CLICK FOR BLAST! 🎆</button>
+    </div>
+
+  </div>
+
+  <script>
+    // Create background floating stars
+    const starContainer = document.getElementById('star-container');
+    for (let i = 0; i < 40; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.width = Math.random() * 6 + 2 + 'px';
+      star.style.height = star.style.width;
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.animationDelay = Math.random() * 5 + 's';
+      starContainer.appendChild(star);
+    }
+
+    // Password logic (Set to 'uncle' by default)
+    function unlock() {
+      const input = document.getElementById('pass-input').value.toLowerCase().trim();
+      if (input === 'uncle' || input === 'subhanarayan' || input === '1234') {
+        document.getElementById('login-overlay').style.opacity = '0';
+        setTimeout(() => {
+          document.getElementById('login-overlay').style.display = 'none';
+          document.getElementById('main-content').style.display = 'block';
+          megaCelebration(); // Confetti Blast on open
+        }, 600);
+      } else {
+        alert('Galat password! Hint: Type "uncle" 😉');
+      }
+    }
+
+    // Confetti Effect
+    function fireConfetti() {
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.7 }
+      });
+    }
+
+    function megaCelebration() {
+      let duration = 3 * 1000;
+      let animationEnd = Date.now() + duration;
+
+      (function frame() {
+        confetti({
+          particleCount: 5,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 }
+        });
+        confetti({
+          particleCount: 5,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 }
+        });
+
+        if (Date.now() < animationEnd) {
+          requestAnimationFrame(frame);
+        }
+      }());
+    }
+  </script>
+</body>
+</html>
